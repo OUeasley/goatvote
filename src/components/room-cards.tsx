@@ -1,6 +1,7 @@
 import { CardContent, Card } from "@/components/ui/card"
 import Link from "next/link";
 import {client} from "@/lib/redis";
+import {logger} from "@/lib/logger";
 
 
 
@@ -15,7 +16,9 @@ async function getAllRooms() {
     results.push({ roomId, roomName });
   }
 
-  console.log(`All rooms:`, results);
+  logger.info(`Loading rooms`, {
+    rooms : results
+  });
   return results;
 }
 

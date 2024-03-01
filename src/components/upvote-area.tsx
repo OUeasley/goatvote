@@ -5,6 +5,7 @@ import {randomUUID} from "node:crypto";
 import Redis from "ioredis";
 import {revalidatePath} from "next/cache";
 import {client} from "@/lib/redis";
+import {logger} from "@/lib/logger";
 
 
 
@@ -32,7 +33,7 @@ export async function UpvoteArea({
       results.push({ itemId, itemName, totalVotes });
     }
 
-    console.log(`All items with votes in room ${roomId}:`, results);
+    logger.info(`All items with votes in room ${roomId}:`, results);
     return results;
   }
 
@@ -48,11 +49,11 @@ export async function UpvoteArea({
     if (hasVoted) {
       // User has voted, remove their vote
       await client.srem(itemVotesKey, userId);
-      console.log(`User ${userId} removed vote from item ${itemId} in room ${roomId}`);
+      logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`);
     } else {
       // User hasn't voted, add their vote
       await client.sadd(itemVotesKey, userId);
-      console.log(`User ${userId} voted for item ${itemId} in room ${roomId}`);
+      logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`);
     }
     revalidatePath(`/room/${id}`)
   }
@@ -78,15 +79,14 @@ export async function UpvoteArea({
     const roomName = await client.hget('votingRooms', roomId);
 
     if (roomName) {
-      console.log(`Room found: ID = ${roomId}, Name = ${roomName}`);
+      logger.info(`Room found: ID = ${roomId}, Name = ${roomName}`);
       return { roomId, roomName };
     } else {
-      console.log(`No room found with ID = ${roomId}`);
+      logger.info(`No room found with ID = ${roomId}`);
       return null; // or throw an error, depending on your error handling strategy
     }
   }
 
-  console.log(id)
   const items = await getAllItemsWithVotes(id);
   const room = await getRoomById(id);
 
