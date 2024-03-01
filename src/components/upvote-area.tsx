@@ -54,7 +54,7 @@ export async function UpvoteArea({
     } else {
       // User hasn't voted, add their vote
       await client.sadd(itemVotesKey, userId);
-      metricsClient.increment('my_counter');
+      metricsClient.increment(itemVotesKey);
       logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`);
     }
     revalidatePath(`/room/${id}`)
