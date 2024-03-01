@@ -8,6 +8,5 @@ const metricsErrorHandler = function (error) {
 export const metricsClient = new StatsD({
   host: 'default.main.great-jarzyna-f1rlbvu.cribl-staging.cloud',
   port: 8125,
-  globalTags: { env: process.env.NODE_ENV },
   errorHandler: metricsErrorHandler
 });
