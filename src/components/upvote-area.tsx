@@ -50,6 +50,8 @@ export async function UpvoteArea({
     if (hasVoted) {
       // User has voted, remove their vote
       await client.srem(itemVotesKey, userId);
+      metricsClient.decrement(itemVotesKey);
+
       logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`);
     } else {
       // User hasn't voted, add their vote
