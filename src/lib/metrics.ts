@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger';
 import StatsD from 'hot-shots';
 
-const metricsErrorHandler = function (error) {
+const metricsErrorHandler = function (error: any) {
   logger.warn("There was an error", error);
 }
 
