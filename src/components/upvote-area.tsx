@@ -6,6 +6,7 @@ import Redis from "ioredis";
 import {revalidatePath} from "next/cache";
 import {client} from "@/lib/redis";
 import {logger} from "@/lib/logger";
+import { metricsClient } from '@/lib/metrics';
 
 
 
@@ -49,10 +50,13 @@ export async function UpvoteArea({
     if (hasVoted) {
       // User has voted, remove their vote
       await client.srem(itemVotesKey, userId);
+      metricsClient.decrement(itemVotesKey);
+
       logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`);
     } else {
       // User hasn't voted, add their vote
       await client.sadd(itemVotesKey, userId);
+      metricsClient.increment(itemVotesKey);
       logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`);
     }
     revalidatePath(`/room/${id}`)
