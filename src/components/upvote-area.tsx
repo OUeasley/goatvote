@@ -115,6 +115,7 @@ export async function UpvoteArea({
             </div>
             <div className="grid gap-4">
               <div className="flex items-center gap-2">
+                {/*@ts-ignore */}
                 <form action={createItem}>
                   <Input name={'itemName'} className="w-[300px] mb-5" placeholder="Enter item name" type="text" />
                   <Button variant={"outline"}>Submit</Button>
@@ -122,8 +123,10 @@ export async function UpvoteArea({
               </div>
             </div>
             <div className="grid gap-4">
+              {/*@ts-ignore */}
               {items.map(item => {
-                return (<div className="flex items-center gap-4">
+                return (<div key={item.itemName} className="flex items-center gap-4">
+                  {/*@ts-ignore */}
                   <form action={toggleVote.bind(null,id,item.itemId)} >
                   <Button variant="outline">
                     <UpvoteIcon className="text-gray-500 dark:text-gray-400" size={30}/>

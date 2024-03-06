@@ -1,6 +1,7 @@
 const winston = require('winston');
 const { createLogger, format, transports } = require('winston');
 
+//@ts-ignore
 const customFormat = format.printf(({ level , message, metadata }) => {
   if (metadata && Object.keys(metadata).length) {
     return `${level}: ${message} ${JSON.stringify(metadata)}`;

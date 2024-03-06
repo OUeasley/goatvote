@@ -28,7 +28,7 @@ export async function RoomCards() {
   return (
     <section className="mx-10 mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       {allRooms.map(room => {
-        return (<div className="flex flex-col justify-center gap-2">
+        return (<div key={room.roomId} className="flex flex-col justify-center gap-2">
           <Card>
             <CardContent className="flex flex-col items-center gap-2 p-4">
               <h2 className="text-lg font-bold">{room.roomName}</h2>

@@ -11,6 +11,7 @@ async function Component() {
     <>
       <TopNav />
       <Room />
+      {/*@ts-ignore */}
       <RoomCards />
     </>
 

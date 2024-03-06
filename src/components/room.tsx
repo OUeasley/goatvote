@@ -33,6 +33,7 @@ export function Room() {
         <p className="text-sm text-gray-500 dark:text-gray-400">Enter a room name to create or join a room</p>
       </CardHeader>
       <CardContent>
+        {/*@ts-ignore */}
         <form className="grid gap-4" action={createRoom}>
           <div className="grid gap-1">
             <Label htmlFor="room-name" className="pb-2">Room Name</Label>

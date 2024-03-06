@@ -3,9 +3,10 @@ import {getSession, withPageAuthRequired} from "@auth0/nextjs-auth0";
 import {TopNav} from "@/components/top-nav";
 
 
+// @ts-ignore
 export default withPageAuthRequired(
-
-async function Component({
+  // @ts-ignore
+  async function Component({
                                     params: { id },
                                   }: {
   params: { id: string }
@@ -15,6 +16,7 @@ async function Component({
   return (
     <>
       <TopNav />
+      {/* @ts-ignore */}
       <UpvoteArea id={id} userId={session?.user?.sub}/>
     </>
   )
