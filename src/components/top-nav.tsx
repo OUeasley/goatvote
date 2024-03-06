@@ -7,7 +7,7 @@ import Link from "next/link"
 export function TopNav() {
   return (
     <nav className="flex h-14 w-full items-center px-4 md:px-6 border-b border-gray-200 dark:border-gray-800">
-      <Link className="font-bold" href="/goatvote">
+      <Link className="font-bold" href="/rooms">
         GoatVote
       </Link>
       <Link className="w-max font-semibold pl-10" href="/rooms">
