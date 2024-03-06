@@ -40,7 +40,7 @@ export async function UpvoteArea({
       results.push({ roomId, roomName, itemId, itemName, totalVotes });
     }
 
-    logger.info(`All items with votes in room ${roomId} (${roomName}):`, results);
+    logger.info(`All items with votes in room ${roomId} (${roomName}):`, {results, roomId, roomName});
     return results;
   }
 
@@ -59,12 +59,12 @@ export async function UpvoteArea({
       await client.srem(itemVotesKey, userId);
       metricsClient.decrement(itemVotesKey);
 
-      logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`);
+      logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`, {itemId, roomId});
     } else {
       // User hasn't voted, add their vote
       await client.sadd(itemVotesKey, userId);
       metricsClient.increment(itemVotesKey);
-      logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`);
+      logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`, {userId, itemId, roomId});
     }
     revalidatePath(`/room/${id}`)
   }
@@ -80,7 +80,7 @@ export async function UpvoteArea({
 
     const roomItemsKey = `room:${id}:items`;
     await client.hset(roomItemsKey, itemId, itemName as string);
-    logger.info(`Added item with id ${id} name ${itemName}`);
+    logger.info(`Added item with id ${id} name ${itemName}`, {itemId: id, itemName});
     revalidatePath(`/room/${id}`)
   }
 
@@ -91,10 +91,10 @@ export async function UpvoteArea({
     const roomName = await client.hget('votingRooms', roomId);
 
     if (roomName) {
-      logger.info(`Room found: ID = ${roomId}, Name = ${roomName}`);
+      logger.info(`Room found: ID = ${roomId}, Name = ${roomName}`, {roomId, roomName});
       return { roomId, roomName };
     } else {
-      logger.info(`No room found with ID = ${roomId}`);
+      logger.info(`No room found with ID = ${roomId}`, {roomId});
       return null; // or throw an error, depending on your error handling strategy
     }
   }
