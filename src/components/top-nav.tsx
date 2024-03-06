@@ -13,6 +13,10 @@ export function TopNav() {
       <Link className="w-max font-semibold pl-10" href="/rooms">
         Rooms
       </Link>
+      <div className="flex-grow"></div>
+      <a className="w-max font-semibold" href="/api/auth/logout" >
+        Log Out
+      </a>
     </nav>
 
   )
