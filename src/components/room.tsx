@@ -22,7 +22,7 @@ export function Room() {
     const roomId = randomUUID();
 
     await client.hset(listKey, roomId, roomName as string);
-    logger.info(`Created room ${roomId}`, {roomId});
+    logger.info(`Created room ${roomId}`, {roomId, time: Date.now()});
     redirect(`/rooms/${roomId}`) // Navigate to the new post page
   }
 

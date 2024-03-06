@@ -17,7 +17,8 @@ async function getAllRooms() {
   }
 
   logger.info(`Loading rooms`, {
-    rooms : results
+    rooms : results,
+    time: Date.now()
   });
   return results;
 }
