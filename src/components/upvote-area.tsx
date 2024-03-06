@@ -73,13 +73,14 @@ export async function UpvoteArea({
     'use server'
 
     const itemName = formData.get('itemName');
-    if(!itemName){
+    if(!itemName){l
       throw new Error("Fuck you doing!?!")
     }
     const itemId = randomUUID();
 
     const roomItemsKey = `room:${id}:items`;
     await client.hset(roomItemsKey, itemId, itemName as string);
+    logger.info(`Added item with id ${id} name ${itemName}`);
     revalidatePath(`/room/${id}`)
   }
 
