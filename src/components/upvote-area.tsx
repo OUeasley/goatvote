@@ -46,7 +46,7 @@ export async function UpvoteArea({
 
 
 
-  async function toggleVote(roomId : string, itemId : string) {
+  async function toggleVote(roomId : string, itemId : string, itemName: string, roomName: string) {
     'use server'
 
     const itemVotesKey = `room:${roomId}:item:${itemId}:votes`;
@@ -59,12 +59,12 @@ export async function UpvoteArea({
       await client.srem(itemVotesKey, userId);
       metricsClient.decrement(itemVotesKey);
 
-      logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`, {itemId, roomId, time: Date.now()});
+      logger.info(`User ${userId} removed vote from item ${itemId} in room ${roomId}`, {itemId, itemName, roomId, roomName, time: Date.now()});
     } else {
       // User hasn't voted, add their vote
       await client.sadd(itemVotesKey, userId);
       metricsClient.increment(itemVotesKey);
-      logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`, {userId, itemId, roomId, time: Date.now()});
+      logger.info(`User ${userId} voted for item ${itemId} in room ${roomId}`, {userId, itemId, roomId, roomName, time: Date.now()});
     }
     revalidatePath(`/room/${id}`)
   }
@@ -127,7 +127,7 @@ export async function UpvoteArea({
               {items.map(item => {
                 return (<div key={item.itemName} className="flex items-center gap-4">
                   {/*@ts-ignore */}
-                  <form action={toggleVote.bind(null,id,item.itemId)} >
+                  <form action={toggleVote.bind(null,id,item.itemId,item.itemName,room?.roomName)} >
                   <Button variant="outline">
                     <UpvoteIcon className="text-gray-500 dark:text-gray-400" size={30}/>
                   </Button>
