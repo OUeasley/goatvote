@@ -26,7 +26,7 @@ export async function RoomCards() {
 
   const allRooms = await getAllRooms();
   return (
-    <section className="mx-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <section className="mx-10 mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       {allRooms.map(room => {
         return (<div className="flex flex-col justify-center gap-2">
           <Card>

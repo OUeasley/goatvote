@@ -25,7 +25,7 @@ export function Room() {
   }
 
   return (
-    <Card className="w-full max-w-lg mx-auto">
+    <Card className="mt-10 w-full max-w-lg mx-auto">
       <CardHeader className="flex flex-col items-center">
         <div className="mb-1">Create a Room</div>
         <p className="text-sm text-gray-500 dark:text-gray-400">Enter a room name to create or join a room</p>

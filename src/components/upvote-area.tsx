@@ -105,7 +105,7 @@ export async function UpvoteArea({
     <div key="1" className="flex flex-col min-h-screen w-full">
       <main className="flex-1">
         <div className="container flex-1 max-w-6xl px-4 md:px-6">
-          <div className="flex flex-col gap-4 justify-center min-h-[calc(100vh_-_theme(spacing.24))_]">
+          <div className="flex flex-col gap-4 min-h-[calc(100vh_-_theme(spacing.24))_]">
             <div className="grid gap-2">
               <h1 className="font-semibold text-4xl">Room: {room?.roomName}</h1>
               <p className="text-gray-500 dark:text-gray-400">
@@ -115,7 +115,7 @@ export async function UpvoteArea({
             <div className="grid gap-4">
               <div className="flex items-center gap-2">
                 <form action={createItem}>
-                  <Input name={'itemName'} className="w-[300px]" placeholder="Enter item name" type="text" />
+                  <Input name={'itemName'} className="w-[300px] mb-5" placeholder="Enter item name" type="text" />
                   <Button variant={"outline"}>Submit</Button>
                 </form>
               </div>
