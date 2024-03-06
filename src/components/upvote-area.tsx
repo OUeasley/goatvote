@@ -21,22 +21,29 @@ export async function UpvoteArea({
   async function getAllItemsWithVotes(roomId: string) {
     'use server';
 
+    // Fetch the room name using the roomId
+    const roomName = await client.hget('votingRooms', roomId);
+
+    if (!roomName) {
+      console.log(`No room found with ID = ${roomId}`);
+      return null; // or handle this case as needed
+    }
+
     const roomItemsKey = `room:${roomId}:items`;
     const items = await client.hgetall(roomItemsKey);
 
     const results = [];
 
-    // Loop through all items to get their votes
     for (const [itemId, itemName] of Object.entries(items)) {
       const itemVotesKey = `room:${roomId}:item:${itemId}:votes`;
-      // Get the total votes for each item using `scard` for counting members of the set
       const totalVotes = await client.scard(itemVotesKey);
-      results.push({ itemId, itemName, totalVotes });
+      results.push({ roomId, roomName, itemId, itemName, totalVotes });
     }
 
-    logger.info(`All items with votes in room ${roomId}:`, results);
+    logger.info(`All items with votes in room ${roomId} (${roomName}):`, results);
     return results;
   }
+
 
 
   async function toggleVote(roomId : string, itemId : string) {
