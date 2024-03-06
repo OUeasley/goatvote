@@ -73,7 +73,7 @@ export async function UpvoteArea({
     'use server'
 
     const itemName = formData.get('itemName');
-    if(!itemName){l
+    if(!itemName){
       throw new Error("Fuck you doing!?!")
     }
     const itemId = randomUUID();
