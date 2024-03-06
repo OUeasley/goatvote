@@ -6,6 +6,7 @@ import Redis from "ioredis"
 import {randomUUID} from "node:crypto";
 import {redirect} from "next/navigation";
 import {client} from "@/lib/redis";
+import { logger } from '@/lib/logger';
 
 export const listKey = 'votingRooms';
 
@@ -21,6 +22,7 @@ export function Room() {
     const roomId = randomUUID();
 
     await client.hset(listKey, roomId, roomName as string);
+    logger.info(`Created room ${roomId}`);
     redirect(`/rooms/${roomId}`) // Navigate to the new post page
   }
 
